@@ -1,0 +1,38 @@
+!!! XML
+!!! Strict
+%html
+  %head
+    %title #{Canvas::Env.title}
+    %meta{content: 'text/html', charset: 'utf-8'}
+    %link{rel: 'stylesheet', type: 'text/css', href: '/layout.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: '/style.css'}
+  %body
+    #content
+      #header
+        %h1#title #{Canvas::Env.title}
+        %p.subtitle as #{Canvas::Env.sub_title}
+      #main
+        =yield
+      #side
+        #about
+          %img{src: '/images/grauwoelfchen.jpg', height: '51px', width: '54px'}
+          %p.note=   h Canvas::Env.note
+          %p.author= h Canvas::Env.author
+        #rss
+          %a{title: 'rss', href: 'rss.xml', class: 'feed'} rss
+        #sitemap
+          %a{title: 'sitemap', href: 'sitemap.xml'} sitemap
+        #index
+          %h4 Index
+          %ul
+            - @files.each do |f|
+              %li
+                %a{href: '/' + h(f)} #{h f}
+          %ul
+            %li
+              %a{href: '/'} HEAD
+      #footer
+        #right
+          %p
+            powered by
+            %a{href: 'http://www.heroku.com/'} Heroku.

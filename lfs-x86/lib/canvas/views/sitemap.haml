@@ -1,0 +1,8 @@
+!!! XML
+%urlset{xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+  - @files.each do |f|
+    %url
+      %loc        #{Canvas::Env.url_base}#{h f}
+      %lastmod=   File.mtime(File.expand_path('./files/' + f + '.md')).strftime("%Y-%m-%d")
+      %changefreq daily
+      %priority   0.7

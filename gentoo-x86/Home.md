@@ -1,0 +1,1 @@
+## Spec```  $ dmidecode -s system-product-name  MacBookPro6,2```* 2.4 GHz Intel Core i5* 4GB Memory 1087MHz DDR3* NVIDIA GeForce GT 330M 256MB* 15-inch (1680x1050)* [[lspci -nn|https://gist.github.com/1601562]]-----## Composition* MBR rEFIt (dual boot)* Boot Loader grub* filesystem ext2/ext4/hfsplus* locale English/Japanese* keymap dvorak
