@@ -1,7 +1,6 @@
-
 # Setup Gentoo
 
-##
+## HD
 
 * boot -> ext2
 * /    -> ext3
@@ -9,17 +8,20 @@
 
 -----
 
-## start
+## Start
 
 keyboard 12 (dvorak)
 
+```
 $ net-setup eth0
 $ ping -c 3 www.gentoo.org
+```
 
 ----
 
-## parted and mkfs
+## Create partition with parted and mkfs
 
+```
 $ parted
 (parted) mklabel gpt
 (parted) mkpart primary ext2 0 201mb
@@ -37,14 +39,18 @@ $ mkfs.ext2 /dev/sda1
 \# mount /dev/sda3 /mnt/gentoo
 \# mkdir /mnt/gentoo/boot
 \# mount /dev/sda1 /mnt/gentoo/boot
+```
 
 
 -----
 
-## stage
+## Stage
 
+```
 $ date
 $ date MMDDhhmmYYYY
+```
+
 
 ### Note
 
@@ -52,9 +58,11 @@ $ date MMDDhhmmYYYY
 The AMD line of 64-bit processors were released well ahead of Intel's offering. Therefore, for historical reasons the arch keyword for all x86-64 compatible architectures is amd64. As such, AMD64 is a generic reference to 64-bit chips, whether AMD or Intel. '
 ```
 
+```
 $ cd /mnt/gentoo
 $ wget http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-64bit/corei7/stage3-current.tar.xz
 $ tar xpf stage3-current.tar.xz
+```
 
 ### Note
 
@@ -80,7 +88,7 @@ add LINGUAS="en de ja"
 
 -----
 
-## chroot
+## Let's chroot
 
 \# cd /mnt/gentoo
 \# mount --bind {/,}proc
@@ -103,7 +111,7 @@ add LINGUAS="en de ja"
 
 -----
 
-## system settings
+## System settings
 
 ### editor
 
@@ -176,7 +184,7 @@ Device Drivers --->
 
 -----
 
-## settings
+## Portage
 
 \# emerge dhcpcd
 \# emerge syslog-ng
@@ -189,7 +197,7 @@ Device Drivers --->
 
 -----
 
-## boot sequence
+## Boot sequence
 
 \# vim /etc/fstab
 \# vim /etc/conf.d/hostname
@@ -208,8 +216,9 @@ Device Drivers --->
 
 -----
 
-# debug
+## Debug
 
+```
 \# mount /dev/sda3 /mnt/gentoo
 \# mount -t proc none /mnt/gentoo/proc
 \# mount --rbind /dev /mnt/gentoo/dev
@@ -228,13 +237,23 @@ do something
 \# umount -l /mnt/gentoo/dev{/shm,/pts,}
 \# umount -l /mnt/gentoo{/boot,/sys,/proc,}
 \# reboot
+```
 
 
 
 -----
 
-module-rebuild
+### Recreate kernel
 
+```
+cd /usr/src/linux
+make menuconfig
+make && make modules_install
+cp /boot/kernel-N.N.N-gentoo /boot/kernel-N.N.N-gentoo.back
+cp x86_64/boot/bzImage /boot/kernel-X.X.X-gentoo
+sudo emerge @module-rebuild
+lilo
+```
 
 -----
 
@@ -264,5 +283,4 @@ __add 20120917__
 * [Funtoo network setting](http://www.funtoo.org/wiki/Funtoo_Linux_Networking)
 
 r8168-31.00 version driver works fine.
-
 
