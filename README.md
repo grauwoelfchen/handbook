@@ -30,7 +30,7 @@ History (Installed GNU/Linux or OpenBSD):
 ### As Desktop/Laptop
 
 * MacBook Pro 6,2
-* MacBook Air
+* MacBook Air 4,2
 * Handmade Desktop (Assembled)
 * iMac 22 inch, mid 2011
 * Thinkpad X11
