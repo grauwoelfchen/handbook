@@ -10,6 +10,7 @@ This is my personal note and logs to setup GNU/Linux or BSD ;)
 * Gentoo Linux
 * Funtoo Linux
 * Debian
+* LFS
 
 ### BSD
 
