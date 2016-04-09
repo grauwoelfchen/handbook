@@ -2,6 +2,13 @@
 
 This is my personal note and logs to setup GNU/Linux or BSD ;)
 
+## Photo
+
+![2011](https://raw.githubusercontent.com/grauwoelfchen/handbooks/master/gentoo-x86/assets/images/alsamixer.jpg)
+![2013](https://farm4.staticflickr.com/3712/11292629953_6ae0169144_q.jpg)
+![2013](https://farm9.staticflickr.com/8296/7845401984_1a034d7805_q.jpg)
+![2015](https://farm2.staticflickr.com/1479/23932310164_85895098de_h.jpg)
+
 
 ## OS
 
@@ -19,15 +26,15 @@ This is my personal note and logs to setup GNU/Linux or BSD ;)
 
 ## Hardware
 
-My current primary machines are:
+### My current primary machines are:
 
 * Handmade Desktop (Assembled)
 * HP ZBook 14 inch
 * HP Home micro server
 
-History (Installed GNU/Linux or OpenBSD):
+### History (Installed GNU/Linux or OpenBSD):
 
-### As Desktop/Laptop
+#### As Desktop/Laptop
 
 * MacBook Pro 6,2
 * MacBook Air 4,2
@@ -36,7 +43,7 @@ History (Installed GNU/Linux or OpenBSD):
 * Thinkpad X11
 * HP ZBook
 
-### As Home Server
+#### As Home Server
 
 * iBook G4
 * Mac mini
