@@ -158,5 +158,5 @@ output on vm process.
 
 * [Download the Official LFS LiveCD](http://www.linuxfromscratch.org/livecd/download.html)
 * [Linux From Scratch(http://www.linuxfromscratch.org/) 入門](http://ww21.tiki.ne.jp/~takeda/lfs.html)
-* [FreeBSD なサーバーに VirtualBox を入れて、その上で Ubuntu server を動かす](http://d.hatena.ne.jp/f99aq/20110919/1316436810)
-* [How to setup headless Sun xVM VirtualBox on Ubuntu server](http://burnz.wordpress.com/2008/09/04/how-to-setup-headless-xvm-virtualbox-on-ubuntu-server/)
+* (ja)[FreeBSD なサーバーに VirtualBox を入れて、その上で Ubuntu server を動かす](http://d.hatena.ne.jp/f99aq/20110919/1316436810)
+* (ja)[How to setup headless Sun xVM VirtualBox on Ubuntu server](http://burnz.wordpress.com/2008/09/04/how-to-setup-headless-xvm-virtualbox-on-ubuntu-server/)

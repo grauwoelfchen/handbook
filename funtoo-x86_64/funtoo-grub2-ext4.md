@@ -102,7 +102,7 @@ The AMD line of 64-bit processors were released well ahead of Intel's offering. 
 
 ### AMD Turion_II
 
-* http://ja.wikipedia.org/wiki/Turion_II
+* (ja)[Turion_II on wikipedia](http://ja.wikipedia.org/wiki/Turion_II)
 
 ```
 Turion X2 Ultraの後継で、AMD K10 アーキテクチャを採用した。
@@ -342,7 +342,7 @@ Remove MBR (optional)
 # dd if=/dev/zero of=/dev/sda bs=512 count=1 #=> remove MBR !!
 ```
 
-* http://mimumimu.net/blog/2012/02/01/hybrid-mbr-を-gpt-mbr-ディスクに変換する。/
+* (ja)[hybrid-mbr-を-gpt-mbr-ディスクに変換する](http://mimumimu.net/blog/2012/02/01/hybrid-mbr-を-gpt-mbr-ディスクに変換する。/)
 
 -----
 

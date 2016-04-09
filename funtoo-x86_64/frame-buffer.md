@@ -10,7 +10,7 @@ Sep 27 02:06:19 stockhorn kernel: [    0.698783] mtrr: type mismatch for d000000
 Sep 27 02:06:19 stockhorn kernel: [    0.699036] [drm] MTRR allocation failed.  Graphics performance may suffer.
 ```
 
-lilo.conf に append で指定してみたがだめ...。
+Specified with `append` at lilo.conf, but it does not work...
 
 ```
 # dmesg | grep mtrr
@@ -29,7 +29,7 @@ Location:
                 -> Support for frame buffer devices (FB [=y])
 ```
 
-MTRR の support をチェック。
+Check MTRR support.
 
 ```
  -*- MTRR (Memory Type Range Register) support
@@ -38,8 +38,8 @@ MTRR の support をチェック。
       (1)     MTRR cleanup spare reg num (0-7)
 ```
 
-MTRR cleanup enable value (0-1) を 0 から 1 にしてみた。  
-Boot 時のメッセージが増えた。
+Change `MTRR cleanup enable value (0-1)` to 1.
+I've got some messages at boot.
 
 ```
 # dmesg | grep mtrr
@@ -51,9 +51,8 @@ Boot 時のメッセージが増えた。
 [    0.972810] mtrr: type mismatch for e0000000,8000000 old: write-back new: write-combining
 ```
 
-mttr_gran_size と mtrr_chunk_size を追加した。  
-適当なサイズがわからない...。
-
+Add `mttr_gran_size` and `mtrr_chunk_size`.  
+But, I don't exactly know how many size should i use it.
 
 ```
  # dmesg | grep mtrr
@@ -67,5 +66,5 @@ mttr_gran_size と mtrr_chunk_size を追加した。
 
 * [MTRR](http://en.gentoo-wiki.com/wiki/MTRR)
 * [Gentoo Linux nVidiaガイド](http://www.gentoo.org/doc/ja/nvidia-guide.xml?style=printable)
-* [10. ブートローダを設定する](http://www.gentoo.org/doc/ja/handbook/handbook-amd64.xml?style=printable&part=1&chap=10)
-* [MTRR機能を使ってXの描画を高速化させたい](http://www.itmedia.co.jp/help/tips/linux/l0173.html)
+* (ja)[10. ブートローダを設定する](http://www.gentoo.org/doc/ja/handbook/handbook-amd64.xml?style=printable&part=1&chap=10)
+* (ja)[MTRR機能を使ってXの描画を高速化させたい](http://www.itmedia.co.jp/help/tips/linux/l0173.html)
