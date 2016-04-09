@@ -4,9 +4,9 @@ This is my personal note and logs to setup GNU/Linux or BSD ;)
 
 ## Photo
 
-![2012](https://farm4.staticflickr.com/3712/11292629953_6ae0169144_m.jpg)
-![2013](https://farm9.staticflickr.com/8296/7845401984_1a034d7805_m.jpg)
-![2015](https://farm2.staticflickr.com/1479/23932310164_85895098de_m.jpg)
+![2012](https://farm9.staticflickr.com/8296/7845401984_1a034d7805_m.jpg)
+![2013](https://farm4.staticflickr.com/3712/11292629953_6ae0169144_m.jpg)
+![2015](https://farm2.staticflickr.com/1479/23932310164_b3f81d0bb5_m.jpg)
 
 
 ## OS
