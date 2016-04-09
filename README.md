@@ -3,14 +3,15 @@
 This is my personal note and logs to setup GNU/Linux or BSD ;)
 
 
-## Linux Distributions
+## OS
+
+### Linux
 
 * Gentoo Linux
 * Funtoo Linux
 * Debian
 
-
-## BSDs
+### BSD
 
 * OpenBSD
 
@@ -21,18 +22,29 @@ My current primary machines are:
 
 * Handmade Desktop (Assembled)
 * HP ZBook 14 inch
+* HP Home micro server
 
 History (Installed GNU/Linux or OpenBSD):
+
+### As Desktop/Laptop
 
 * MacBook Pro 6,2
 * MacBook Air
 * Handmade Desktop (Assembled)
-* iBook G4
-* Mac mini
 * iMac 22 inch, mid 2011
-* HP Home micro server
 * Thinkpad X11
 * HP ZBook
+
+### As Home Server
+
+* iBook G4
+* Mac mini
+* HP Home micro server
+
+
+## Links
+
+* [grauwoelfchen/portage-overlay](https://github.com/grauwoelfchen/portage-overlay) My Gentoo Overlay
 
 
 ## License
