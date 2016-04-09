@@ -41,7 +41,7 @@ zones/      #=> forward/reverse zones files
 ## Notes
 
 * `emerge -av bind-tools`
-* `dig @127.0.0.1 grauwoelfchen.net`
+* `dig @127.0.0.1 example.org`
 
 
 ## Ref.

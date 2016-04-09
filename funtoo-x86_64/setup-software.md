@@ -266,5 +266,6 @@ create font scale and load from X
 $ xterm -h | grep fa
 
 ### Ref.
-* http://grauwoelfchen.at/graffiti/xterm_with_ttf-font
+
+* http://canvas.grauwoelfchen.net/graffiti/xterm_with_ttf-font
 

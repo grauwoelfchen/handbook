@@ -15,7 +15,6 @@ MacBookAir4,2
     driver = sda_hda_intel
 
     Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller
-    
 -----
 
 ## Network
@@ -101,5 +100,5 @@ dhcpcd[2090]: forked to background, ...
 
 ```
 # useradd -m -G users,wheel,audio,chrom -s /bin/zsh <username>
-# passwd yasuhiro
+# passwd USERNAME
 ```

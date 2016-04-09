@@ -272,8 +272,8 @@ shm         /dev/shm   tmpfs nodev,nosuid,noexec  0 0
 ## User
 
 ```
-# useradd -m -G users,wheel -s /bin/bash yasuhiro
-# passwd yasuhiro
+# useradd -m -G users,wheel -s /bin/bash USERNAME
+# passwd USERNAME
 ```
 
 ## clear up
