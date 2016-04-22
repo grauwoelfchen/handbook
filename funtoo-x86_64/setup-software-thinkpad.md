@@ -6,7 +6,7 @@
 
 ## Setup truetype
 
-* truetype has cycle dependency with `infinalyty` flag
+* truetype has cycle dependency with `infinality` flag
 
 ```
 ;; to avoid cycle dependency
