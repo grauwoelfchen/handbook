@@ -2,6 +2,7 @@
 
 * use `sudo`
 * use `sudo eselect rc` instead of `rc-update`
+* slim x11
 
 
 ## Create user
@@ -27,10 +28,18 @@
 ### Shell
 
 ```zsh
-% sudo emerge -av zsh
+% sudo emerge -av zsh zsh-completions gentoo-zsh-completions
 % sudo username USERNAME -s /bin/zsh
+
+# for now
 % touch ~/.zshrc
+
 % exit
+```
+
+```
+# disale global zprofile
+% sudo mv /etc/zsh/{zprofile, zprofile.orig}
 ```
 
 ### Freetype
@@ -135,7 +144,7 @@ hwclock -w
 % sudo emerge -av openssh
 ```
 
-```
+```zsh
 # edit sshd_config (for server)
 # for your needs
 % sudo vim /etc/ssh/sshd_config
@@ -147,7 +156,7 @@ hwclock -w
 
 ### Git
 
-```
+```zsh
 % sudo su
 # echo 'app-crypt/gnupg tools' >> /etc/portage/package.use/gnupg
 # echo 'dev-vcs/git highlight' >> /etc/portage/package.use/git
@@ -166,7 +175,7 @@ I don't use touchpad.
 
 And you might need also `virtualbox`, `libressl` for your environment.
 
-```
+```zsh
 % sudo emerge -av xorg-server
 % sudo emerge -av portage-utils
 
@@ -175,9 +184,13 @@ And you might need also `virtualbox`, `libressl` for your environment.
 % sudo emerge -av xscreensaver
 ```
 
+```zsh
+% sudo emerge -av xev xkbset xmodmap
+```
+
 ### xorg.conf.d
 
-```
+```text
 Section "InputClass"
   Identifier "evdev pointer catchall"
   MatchIsPointer "on"
@@ -216,9 +229,97 @@ Create `~/.Xresources` and `~/.xinitrc`
 DISPLAPYMANAGER="slim"
 ```
 
-### Note
+### IME and dict
+
+Use `skk` with `uim`
+
+```zsh
+% sudo su
+# echo 'app-i18n/uim skk -anthy' >> /etc/portage/package.use/uim
+# exit
+
+% sudo emerge -av uim
+```
+
+```zsh
+# emerge skk dict server
+% sudo emerge -av dbskkd-cdb
+```
+
+```zsh
+% vim /etc/xinetd.d/dbskkd-cdb
+service skkserv
+{
+  socket_type    = stream
+  wait           = no
+  user           = dbskkd
+  protocol       = tcp
+  bind           = 127.0.0.1
+  type           = UNLISTED
+  port           = 1178
+  server         = /usr/libexec/dbskkd-cdb
+  log_on_failure += USERID
+  disable        = no
+}
+```
+
+```zsh
+% sudo eselect rc add xinetd default
+```
+
+### Login Manager
+
+```zsh
+% sudo emerge -av x11-misc/slim
+
+% sudo vim /etc/conf.d/xdm
+DISPLAPYMANAGER="slim"
+% sudo eselect rc add xdm default
+```
+
+You don't need to emerge `x11-apps/xdm`
+
+Finaly setup `slim`
+
+```zsh
+% sudo vim /etc/slim.conf
+login_cmd           exec /bin/sh - ~/.xinitrc %session
+screenshot_cmd      import -window USERNAME /home/USERNAME/screenshot.png
+welcome_msg         Willkommen zu %host
 
 ```
+
+And choose personal slim theme.  
+(clone into /usr/share/slim/themes with git)
+
+```
+% cd /usr/share/slim/themes
+% sudo mkdir spiez
+% sudo chown USERNAME:USERNAME spiez
+% git clone https://github.com/grauwoelfchen/slim.theme-spiez.git .
+```
+
+
+```text
+#current_theme       zuerich
+#current_theme       spiez
+current_theme       luzern
+```
+
+## Note
+
+#### vim
+
+```text
 # save current file as sudo user in vim
 :w !sudo tee>/dev/null %
+```
+
+#### console
+
+```
+Ctrl + Alt + F1
+Ctrl + Alt + F2
+...
+Ctrl + Alt + F7
 ```

@@ -45,7 +45,7 @@ So setup `wpa_supplicant`
 % /etc/init.d/NetworkManager stop
 
 # check interface name
-% ip link (or ifconfig -a)
+% ip address (or ifconfig -a)
 
 % ip link set {INTERFACE} up
 ```
@@ -360,11 +360,24 @@ clock="local"
 % vim /etc/conf.d/modules
 ```
 
-#### Firmware
+#### Network Firmware
 
 ```
 # Some drivers for wireless network need this
 % emerge -av linux-firmware
+```
+
+Or download a firmware, directly.
+
+```
+# This is firmware for wireless network (iwlwifi)
+# `iwlwifi-7265-16.ucode` was too new for my device (in kernel 4.5.1)
+# (https://wireless.wiki.kernel.org/_media/en/users/drivers/iwlwifi-7265-ucode-16.242414.0.tgz)
+# Then use `iwlwifi-7265-13.ucode`.
+% curl -LO https://wireless.wiki.kernel.org/_media/en/users/drivers/iwlwifi-7265-ucode-25.30.13.0.tgz
+% tar zxvf iwlwifi-7265-ucode-25.30.13.0.tgz
+% mkdir /lib/firmware
+% cp iwlwifi-7265-ucode-25.30.13.0/iwlwifi-*.ucode /lib/firmware
 ```
 
 
@@ -421,21 +434,53 @@ clock="local"
 % rc-update add net.wlo1 default
 ```
 
+* sys-apps/iproute2 (`ip`)
+* net-wireless/iw (`iw`)
+* sys-apps/net-tools (if you  want to use `ifconfig`)
+* net-wireless/wireless-tools (if you want to use `iwconfig`)
+
+
+* net-vireless/wpa_supplicant
+* net-misc/wicd
 
 ##### Note
 
+###### E1000E
+
+for wired network
+
+```
+Device Drivers
+    Network device support
+        Ethernet driver support
+              Intel devices
+                   <M> Intel(R) PRO/1000 PCI-Express Gigabit Ethernet support
+```
+
 ###### iwlwifi
+
+Make sure firmware `iwlwifi-7265-ucode-13`
 
 ```
 % dmesg
 ...
-XXX request for firmware file 'iwlwifi-5000-4.ucode' failed.
-XXX Direct firmware load for iwlwifi-5000-3.ucode failed with error -2
-XXX request for firmware file 'iwlwifi-5000-3.ucode' failed.
-XXX Direct firmware load for iwlwifi-5000-2.ucode failed with error -2
-XXX request for firmware file 'iwlwifi-5000-2.ucode' failed.
-XXX Direct firmware load for iwlwifi-5000-1.ucode failed with error -2
-XXX request for firmware file 'iwlwifi-5000-1.ucode' failed.
+[ N] __allocate_fw_buf: fw-iwlwifi-7265-13.ucode buf=XXXXXXXXXXXXX
+[ N] iwlwifi 0000:03:00.0: Direct firmware load for iwlwifi-7265-13.ucode failed with error -2
+[ N] __fw_free_buf: fw-iwlwifi-7265-13.ucode buf=XXXXXXXXXXXXXXXXX data=         (null) size=0
+[ N] iwlwifi 0000:03:00.0: request for firmware file 'iwlwifi-7265-13.ucode' failed.
+[ N] __allocate_fw_buf: fw-iwlwifi-7265-12.ucode buf=XXXXXXXXXXXXX
+[ N] iwlwifi 0000:03:00.0: Direct firmware load for iwlwifi-7265-12.ucode failed with error -2
+[ N] __fw_free_buf: fw-iwlwifi-7265-13.ucode buf=XXXXXXXXXXXXXXXXX data=         (null) size=0
+[ N] iwlwifi 0000:03:00.0: request for firmware file 'iwlwifi-7265-12.ucode' failed.
+[ N] __allocate_fw_buf: fw-iwlwifi-7265-11.ucode buf=XXXXXXXXXXXXX
+[ N] iwlwifi 0000:03:00.0: Direct firmware load for iwlwifi-7265-11.ucode failed with error -2
+[ N] __fw_free_buf: fw-iwlwifi-7265-13.ucode buf=XXXXXXXXXXXXXXXXX data=         (null) size=0
+[ N] iwlwifi 0000:03:00.0: request for firmware file 'iwlwifi-7265-11.ucode' failed.
+[ N] __allocate_fw_buf: fw-iwlwifi-7265-10.ucode buf=XXXXXXXXXXXXX
+[ N] iwlwifi 0000:03:00.0: Direct firmware load for iwlwifi-7265-10.ucode failed with error -2
+[ N] __fw_free_buf: fw-iwlwifi-7265-13.ucode buf=XXXXXXXXXXXXXXXXX data=         (null) size=0
+[ N] iwlwifi 0000:03:00.0: request for firmware file 'iwlwifi-7265-10.ucode' failed.
+[ N] iwlwifi 0000:03:00.0: no suitable firmware found!
 ```
 
 The error -2 means ENOENT (i.e. file not found)  
@@ -443,13 +488,71 @@ The error -2 means ENOENT (i.e. file not found)
 Check wireless network device support as kernel module.
 See `find /lib64 -iname 'iwlfifi*'` and check `/etc/conf.d/modules`
 
-If you have still trouble in wlan firmware, then use `falling back to user helper`.
+```zsh
+% dmesg | less
+...
+Direct firmware load for iwlwifi-7265-exp.ucode failed with error -2
+```
+
+Disable `Experiment support`
+
+
+If you have still trouble in wlan firmware, then use `falling back to user helper`.  
+(I don't use this, but it might be help, and I've confirmed it works)
 
 ```
 Device Drivers
     Generic Driver Options
         [*] Fallback user-helper invocation for firmware loading
 ```
+
+###### firmware
+
+Make sure firmware and drivers for network device.
+
+
+```zsh
+% modinfo iwlwifi
+...
+firmware iwlwifi-7265D-12.ucode
+firmware iwlwifi-7265-12.ucode
+...
+depends cfg80211
+...
+```
+
+
+```text
+# from https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi
+7260 and 7265 support
+
+7260 and 7265 will not be supported by the newest firmware versions: the last firmware that was released for these devices is -17.ucode. Bug fixes will be ported to -17.ucode. Note that 7265D can run later firmware versions. In order to determine if your 7265 device is a 'D' version, you can check the dmesg output:
+
+Detected Intel(R) Dual Band Wireless AC 7265, REV=0x210
+
+The revision number of a 7265D device is 0x210, if you see any other number, you have a 7265 device.
+```
+
+```text
+iwlmvm
+Intel® Wireless 7265
+```
+
+```zsh
+% iw dev wlo1 info
+interface wlo1
+      ifindex 2
+      wdev 0x1
+      addr XX:XX:XX:XX:XX:XX
+      type managed
+      wiphy 0
+```
+
+* https://wireless.wiki.kernel.org/
+* https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi
+* http://www.intel.com/content/www/us/en/wireless-products/dual-band-wireless-ac-7265.html
+* http://git.kernel.org/cgit/linux/kernel/git/iwlwifi/linux-firmware.git
+
 
 ###### rfkill
 
@@ -467,6 +570,52 @@ wlo1: CTRL-EVENT-CONNECTED
 Networking support
     <M> Bluetooth subsystem support --->
     <M> RF switch subsystem support
+```
+
+###### wpa driver
+
+The `wext` is (maybe) already deprecated. Use `nl80211`.
+
+```zsh
+% wpa_supplicant -h
+...
+drivers:
+  nl80211 = Linux nl80211/cfg80211
+  wext = Linux wireless extensions (generic)
+  wired = Wired Ethernet driver
+```
+
+###### wicd
+
+Got error `ERROR:dbus.connection.Exception in handler for D-Bus signal` via wicd
+
+Make sure `dhcpcd` runnig.
+
+```
+% /etc/init.d/dhcpcd stop
+% eselect rc delete dhcpcd default
+```
+
+The `wicd` scan fails from `get_selected_profile()` in `/usr/share/wicd/curses/wicd-curses.py`.  
+Check scan capability with `iwlist wlo1 scan`
+
+```
+% iwlist wlo1 scan
+wlo1 interface doesn't support scanning.
+
+# If you got `no extensions`, then make sure drivers in kernel
+% iw (or `iwconfig`)
+wlo1 no wireless extensions.
+```
+
+Then make sure `cfg80211 wireless extensions compatibillity`.
+
+```
+Networking support --->
+    Wireless --->
+        <M> cfg80211 - wireless configuration API
+        ...
+        [*]   cfg80211 wireless extensions compatibillity
 ```
 
 
@@ -526,8 +675,6 @@ Emerge these also in your OS side. (SystemRescueCD has both)
 
 ```zsh
 % /etc/init.d/NetworkManager stop
-# setup again wpa_supplicant at here if you need
-% wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1 -B
 
 % (mkdir /mnt/gentoo)
 % mount /dev/sda4 /mnt/gentoo
@@ -543,6 +690,10 @@ Emerge these also in your OS side. (SystemRescueCD has both)
 % env -i HOME=/root TERM=$TERM chroot . bash -l
 % etc-update
 % source /etc/profile
+
+# (setup again wpa_supplicant at here if you need)
+% wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1 -B
+% dhcpcd -d wlo1
 
 do something
 
