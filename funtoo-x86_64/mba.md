@@ -68,7 +68,6 @@ dhcpcd[2090]: forked to background, ...
 ## Setup
 
 * wireless-tools
-* wpa_passphrase
 * wicd
 * sudo
 * zsh
