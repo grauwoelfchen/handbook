@@ -306,6 +306,22 @@ And choose personal slim theme.
 current_theme       luzern
 ```
 
+### Power
+
+```zsh
+% sudo emerge -av acpitool
+% acpitool
+  Battery #1    : Discharging, 95,89%, 00:00:00
+  AC adapter    : off-line
+  Thermal info  : <not available>
+```
+
+`Thermal info` needs setting in kernel.
+
+```
+```
+
+
 ## Note
 
 #### vim
