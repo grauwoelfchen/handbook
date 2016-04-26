@@ -321,6 +321,100 @@ current_theme       luzern
 ```
 ```
 
+### Web browser
+
+
+```zsh
+% sudo su
+# echo 'www-client/lynx cjk gnutls' >> /etc/portage/package.use/lynx
+# echo 'www-client/elinks gc lua javascript ftp xml' >> /etc/portage/package.use/elinks
+# exit
+% sudo emerge -av lynx elinks
+```
+
+### Desktop Masager
+
+```zsh
+% lynx http://blog.quicklisp.org/feeds/posts/default
+# Or use elinks
+% elinks http://quicklisp.org/
+```
+
+```
+;; stumpish needs these
+% sudo emerge -av font-misc-misc
+% sudo emerge -av xprop
+% sudo emerge -av rlwrap
+
+;; stumpwm needs this
+% sudo emerge -av xdpyinfo
+
+% sudo su
+# echo 'dev-lisp/sbcl source' >> /etc/portage/package.use/sbcl
+# exit
+% sudo emerge -av sbcl
+
+;; Download quicklisp files
+% curl -LO https://beta.quicklisp.org/release-key.txt
+% curl -LO https://beta.quicklisp.org/quicklisp.lisp
+% curl -LO https://beta.quicklisp.org/quicklisp.lisp.asc
+
+% gpg --import release-key.txt
+;; Make sure Fingerprint
+% gpg --list-public-keys
+
+% gpg --sign-key "Quicklisp Release Signing Key"
+% gpg --verify quicklisp.lisp.asc quicklisp.lisp
+
+;; --core option is needed, because default is /usr/local/bin/sbcl/sbcl.core
+% sbcl --core /usr/lib/sbcl/sbcl.core --load quicklisp.lisp
+sbcl>
+```
+
+```sbcl
+* (quicklisp-quickstart:install)
+* (ql:add-to-init-file)
+* (quit)
+```
+
+```zsh
+% edit ~/.sbclrc
+;; encoding: utf-8
+
+;;; The encoding
+(setq sb-impl::*default-external-format* :utf-8)
+(setq sb-alien::*default-c-string-external-format* :utf-8)
+
+;;; The following lines added by ql:add-to-init-file:
+...
+```
+
+```sbcl
+;; install dependencies
+(ql:quickload "clx")
+(ql:quickload "cl-ppcre")
+```
+
+```
+# install into /usr/local/bin
+% cd /path/to/somewhere
+% git clone https://github.com/stumpwm/stumpwm.git
+% git clone https://github.com/stumpwm/stumpwm-contlib.git
+% cd stumpwm
+% autoconf
+% ./configure --with-module-dir=../stumpwm-contrib --with-lisp=sbcl --with-sbcl=/usr/bin/sbcl
+# Append `--core /usr/lib/sbcl/sbcl.core` into LISP
+% vim Makefile
+% make 
+% sudo make install
+```
+
+```
+% cat ~/.xinitrc
+...
+exec /usr/local/bin/stumpwm
+```
+
 
 ## Note
 
