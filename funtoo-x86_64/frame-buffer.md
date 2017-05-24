@@ -20,7 +20,7 @@ Specified with `append` at lilo.conf, but it does not work...
 [    0.973340] mtrr: type mismatch for e0000000,8000000 old: write-back new: write-combining
 ```
 
-CONFIG_FB の Location。
+CONFIG_FB Location
 
 ```
 Location:
