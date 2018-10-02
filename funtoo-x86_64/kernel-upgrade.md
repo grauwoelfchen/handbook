@@ -42,6 +42,14 @@ drwxr-xr-x 23 root root 4096 Feb 26 00:59 linux-3.8.0-gentoo
 * sudo make menuconfig
 * make && make modules_install
 
+### module
+
+```bash
+: Some modules are needed to re:build every time after new kernel compiling
+: But be carefull for the "updates"
+# emerge -av @module-rebuild
+```
+
 
 ### Framebuffer
 
